@@ -1,0 +1,119 @@
+:root{
+  --red:#d62e2e; --straw:#f2c75c; --paper:#f1e2b8; --ink:#3a2814;
+  --wood:#9a6830; --wood-d:#5e3c17; --sea:#1c78b8; --deep:#0b3f73; --ok:#2f8f5b; --bad:#b3261e;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:"Alegreya Sans",system-ui,sans-serif;color:var(--ink);
+  background:linear-gradient(#8fdcf7 0%,#4fb3e6 32%,var(--sea) 62%,var(--deep) 100%) fixed}
+
+/* Mar de fondo */
+.sea{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+   radial-gradient(ellipse 150px 38px at 14% 16%,#fff 62%,#0000 64%),
+   radial-gradient(ellipse 110px 28px at 24% 19%,#fff 62%,#0000 64%),
+   radial-gradient(ellipse 130px 32px at 62% 30%,#ffffffcc 62%,#0000 64%)}
+.sun{position:absolute;top:5%;right:8%;width:90px;height:90px;border-radius:50%;
+  background:radial-gradient(circle,#fff6c4 30%,var(--straw) 60%,#0000 72%);box-shadow:0 0 60px 20px #ffe58a88}
+.w{position:absolute;left:0;right:0;height:26px;background-repeat:repeat-x;background-size:80px 26px;animation:drift 9s linear infinite}
+.w1{bottom:26px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='26'%3E%3Cpath d='M0 13 Q20 0 40 13 T80 13 V26 H0Z' fill='%23ffffff' fill-opacity='.28'/%3E%3C/svg%3E")}
+.w2{bottom:0;animation-duration:6s;animation-direction:reverse;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='26'%3E%3Cpath d='M0 13 Q20 0 40 13 T80 13 V26 H0Z' fill='%2308305c'/%3E%3C/svg%3E")}
+@keyframes drift{to{background-position-x:80px}}
+
+main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:22px 16px 90px}
+.screen{display:none}.screen.on{display:block}
+h1,h2,h3{font-family:"Pirata One",Impact,serif;font-weight:400;margin:0}
+
+/* Carga */
+#load{text-align:center;padding-top:6vh}
+.jolly{width:min(220px,55vw);height:auto;filter:drop-shadow(0 8px 0 #0004);animation:bob 2.4s ease-in-out infinite}
+.jolly.sm{width:90px;display:block;margin:0 auto 6px;animation:none;filter:drop-shadow(0 3px 0 #0003)}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-3deg)}}
+.logo{font-size:clamp(3.4rem,16vw,6rem);color:var(--straw);line-height:1;margin-top:8px;
+  -webkit-text-stroke:3px var(--red);paint-order:stroke fill;text-shadow:0 6px 0 #7d1f16}
+.tag{font-family:"Pirata One",serif;font-size:1.7rem;color:#fff;margin:4px 0 26px;text-shadow:0 2px 0 #0006}
+.loadbar{width:min(380px,80%);height:18px;margin:0 auto;border:3px solid var(--wood-d);border-radius:12px;background:#0005;overflow:hidden}
+.loadbar div{height:100%;width:0;background:repeating-linear-gradient(45deg,var(--red) 0 12px,#ef5a4a 12px 24px)}
+.lt{color:#fff;font-weight:800;margin-top:12px;text-shadow:0 2px 0 #0006}
+
+/* Carteles */
+.poster{position:relative;background:var(--paper);color:var(--ink);border:5px solid var(--wood-d);border-radius:6px;padding:28px 20px 22px;
+  box-shadow:0 14px 0 #0003,inset 0 0 40px #b0884a55}
+.poster::before{content:"";position:absolute;top:8px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#ddd,#666)}
+.poster h2{font-size:clamp(2rem,8vw,2.8rem);text-align:center;color:var(--red)}
+.lead{text-align:center;font-size:1.15rem;font-weight:700;margin:6px 0 16px}
+.lbl{display:block;font-weight:800;margin-bottom:4px}
+input{width:100%;font:inherit;font-size:1.3rem;font-weight:800;padding:11px 12px;border:3px solid var(--wood-d);border-radius:4px;background:#fffbe9;color:var(--ink)}
+input:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.err{color:var(--bad);font-weight:800;min-height:1.4em;margin:6px 0}
+.rules{margin:0 0 18px;padding-left:20px;font-weight:700;line-height:1.4}
+.rules li{margin-bottom:4px}
+
+.btn{font-family:"Pirata One",serif;font-size:1.6rem;cursor:pointer;border:0;border-radius:6px;padding:11px 22px;width:100%;
+  background:var(--red);color:#fff;box-shadow:0 5px 0 #7d1f16}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #7d1f16}
+.btn.alt{background:var(--straw);color:var(--ink);box-shadow:0 5px 0 #a47d14}
+.btn.small{font-size:1.3rem;width:auto;flex:1}
+.btn:focus-visible,.opt:focus-visible,.ll:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+/* Juego */
+.hud{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.cap{font-family:"Pirata One",serif;font-size:1.5rem;color:#fff;text-shadow:0 2px 0 var(--wood-d)}
+.score{font-family:"Pirata One",serif;font-size:1.8rem;color:var(--straw);text-shadow:0 2px 0 var(--wood-d),0 0 10px #0006}
+.track{position:relative;margin:34px 34px 12px;height:30px;border-top:4px dotted #fff}
+.isl{position:absolute;top:8px;transform:translateX(-50%);font-weight:800;font-size:.85rem;color:#fff;text-shadow:0 1px 0 var(--wood-d);white-space:nowrap}
+.isl::before{content:"";position:absolute;left:50%;top:-14px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--straw);border:2px solid var(--wood-d)}
+.ship{position:absolute;top:-38px;left:0;font-size:2rem;transform:translateX(-50%);transition:left .8s ease}
+.combo{min-height:1.4em;text-align:center;font-weight:800;color:#fff;text-shadow:0 2px 0 var(--wood-d);margin-bottom:4px}
+.timer{height:12px;background:#0005;border:2px solid var(--wood-d);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.timer div{height:100%;background:linear-gradient(90deg,var(--straw),var(--red));transform-origin:left}
+.qn{font-family:"Pirata One",serif;font-size:1.2rem;color:var(--red);margin:0 0 2px}
+.q{font-size:clamp(1.25rem,4.6vw,1.65rem);font-weight:800;line-height:1.25;margin:0}
+.opts{display:grid;gap:10px;margin-top:16px}
+.opt{font:inherit;font-size:1.15rem;font-weight:800;text-align:left;cursor:pointer;padding:12px 14px;border-radius:5px;
+  border:3px solid var(--wood-d);color:#fff3d6;text-shadow:0 1px 0 var(--wood-d);
+  background:repeating-linear-gradient(180deg,#a8743a 0 7px,#9a6830 7px 14px);box-shadow:0 4px 0 var(--wood-d);transition:transform .1s}
+.opt:hover:not(:disabled){transform:translateX(5px)}
+.opt:disabled{cursor:default}
+.opt.ok{background:var(--ok);border-color:#1c6a40}
+.opt.ok::after{content:" ✓"}
+.opt.bad{background:var(--bad);border-color:#7d1712}
+.opt.bad::after{content:" ✗"}
+.opt.gone{opacity:.3;text-decoration:line-through}
+.bubble{display:none;align-items:center;gap:10px;margin-top:16px;padding:10px 12px;background:#fff;border:3px solid var(--wood-d);border-radius:14px;font-weight:800}
+.bubble.on{display:flex;animation:pop .35s}
+.av{font-size:2rem}
+.bubble p{margin:0}
+.bubble small{display:block;font-weight:700;opacity:.75;margin-top:2px}
+.tools{display:flex;gap:10px;margin-top:14px}
+.ll{font:inherit;font-weight:800;cursor:pointer;flex:1;padding:9px;border-radius:6px;border:3px dashed #fff;background:#0003;color:#fff}
+.ll:disabled{opacity:.4;cursor:default}
+.shake{animation:shake .4s}.pop{animation:pop .35s}
+@keyframes shake{20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+@keyframes pop{50%{transform:scale(1.03)}}
+
+/* Resultado */
+.wanted{text-align:center}
+.wtitle{font-size:clamp(3.4rem,16vw,5.4rem)!important;line-height:.9;letter-spacing:.05em}
+.pname{font-family:"Pirata One",serif;font-size:2rem;margin:4px 0 0;word-break:break-word}
+.doa{font-weight:800;letter-spacing:.15em;margin:0}
+.bounty{font-family:"Pirata One",serif;font-size:clamp(2.2rem,10vw,3.4rem);margin:8px 0 2px;color:var(--ink)}
+.rank{font-family:"Pirata One",serif;font-size:1.6rem;color:var(--red)}
+.msg{font-weight:700;margin:4px 0 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.stats div{border:3px solid var(--wood-d);padding:6px 2px;background:#fff5;font-weight:700}
+.stats b{display:block;font-family:"Pirata One",serif;font-size:1.8rem;font-weight:400}
+.revt{margin:26px 0 10px;font-size:2rem;color:#fff;text-shadow:0 3px 0 var(--wood-d)}
+.rv{background:var(--paper);border:4px solid var(--wood-d);border-left-width:12px;border-radius:6px;padding:10px 12px;margin-bottom:10px;font-weight:700}
+.rv.ok{border-left-color:var(--ok)}.rv.bad{border-left-color:var(--bad)}
+.rv .rq{font-weight:800;margin:0 0 4px}
+.rv p{margin:2px 0}.rv .mine.bad{color:var(--bad)}.rv .mine.ok,.rv .good{color:var(--ok)}
+.endbtns{display:grid;gap:12px;margin-top:20px}
+.gift{margin-top:30px;padding:24px 16px;text-align:center;background:var(--paper);border:5px solid var(--wood-d);border-radius:6px;box-shadow:0 10px 0 #0003,inset 0 0 40px #b0884a55}
+.gift .hearts{font-size:1.8rem;animation:bob 2.4s ease-in-out infinite}
+.gift-t{font-family:"Pirata One",serif;font-size:clamp(2rem,9vw,3rem);color:var(--red);margin:6px 0 0;line-height:1.1}
+.gift-s{font-weight:800;font-size:1.25rem;margin:6px 0 0}
+@media (max-width:480px){.isl{font-size:.7rem}.track{margin:34px 26px 12px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

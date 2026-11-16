@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>One Piece · Quiz de la Gran Línea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Alegreya+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="jolly" viewBox="0 0 200 200">
+    <path d="M42 138 L158 186 M158 138 L42 186" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="100" cy="108" r="45" fill="#f6f1e6"/>
+    <circle cx="84" cy="106" r="10" fill="#1a1a1a"/><circle cx="116" cy="106" r="10" fill="#1a1a1a"/>
+    <path d="M100 116 L94 130 H106Z" fill="#1a1a1a"/>
+    <rect x="82" y="136" width="36" height="14" rx="3" fill="#f6f1e6" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M91 136V150M100 136V150M109 136V150" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M55 70 Q58 20 100 20 Q142 20 145 70Z" fill="#f2c75c" stroke="#b8882b" stroke-width="3"/>
+    <path d="M56 58 Q100 72 144 58 L145 70 Q100 84 55 70Z" fill="#d62e2e"/>
+    <ellipse cx="100" cy="72" rx="82" ry="15" fill="#f2c75c" stroke="#b8882b" stroke-width="3"/>
+    <path d="M56 60 Q100 74 144 60 L146 70 Q100 85 54 70Z" fill="#d62e2e"/>
+  </symbol>
+</svg>
+
+<div class="sea" aria-hidden="true"><div class="sun"></div><div class="w w1"></div><div class="w w2"></div></div>
+
+<main>
+  <!-- 1. Pantalla de carga -->
+  <section id="load" class="screen on">
+    <svg class="jolly" viewBox="0 0 200 200"><use href="#jolly"/></svg>
+    <h1 class="logo">ONE PIECE</h1>
+    <p class="tag">Quiz de la Gran Línea</p>
+    <div class="loadbar"><div id="lb"></div></div>
+    <p id="lt" class="lt">Izando las velas…</p>
+  </section>
+
+  <!-- 2. Bienvenida y nombre -->
+  <section id="hello" class="screen">
+    <div class="poster">
+      <svg class="jolly sm" viewBox="0 0 200 200"><use href="#jolly"/></svg>
+      <h2>¡Hola, futuro pirata!</h2>
+      <p class="lead">Antes de zarpar, dinos cómo te llamas para ponerlo en tu cartel de recompensa.</p>
+      <label for="name" class="lbl">Tu nombre</label>
+      <input id="name" type="text" maxlength="16" autocomplete="off" placeholder="Ej: Monkey D. Pedro">
+      <p id="err" class="err"></p>
+      <ul class="rules">
+        <li><b>15 preguntas</b> en 3 mares: East Blue, Grand Line y Nuevo Mundo.</li>
+        <li>Si fallas, <b>fallaste</b>: no hay segundas oportunidades, pero tampoco te hundes.</li>
+        <li>Al final verás <b>todas las respuestas correctas</b>.</li>
+      </ul>
+      <button class="btn" id="go">¡A zarpar!</button>
+    </div>
+  </section>
+
+  <!-- 3. Juego -->
+  <section id="game" class="screen">
+    <div class="hud"><div id="cap" class="cap"></div><div class="score" id="score">฿ 0</div></div>
+    <div class="track" id="track">
+      <span class="isl" style="left:0">East Blue</span>
+      <span class="isl" style="left:33.3%">Grand Line</span>
+      <span class="isl" style="left:66.6%">Nuevo Mundo</span>
+      <span class="isl" style="left:100%">Laugh Tale</span>
+      <span class="ship" id="ship">⛵</span>
+    </div>
+    <div class="combo" id="combo"></div>
+    <div class="timer"><div id="bar"></div></div>
+    <div class="poster q-card" id="card">
+      <p class="qn" id="qn"></p>
+      <p class="q" id="q"></p>
+      <div class="opts" id="opts"></div>
+    </div>
+    <div class="bubble" id="bubble"><span class="av" id="av"></span><p id="bt"></p></div>
+    <div class="tools">
+      <button class="ll" id="fifty">🧭 Log Pose: quitar 2 (2)</button>
+      <button class="btn small" id="next" style="display:none">Siguiente</button>
+    </div>
+  </section>
+
+  <!-- 4. Resultado -->
+  <section id="end" class="screen">
+    <div class="poster wanted">
+      <h2 class="wtitle">WANTED</h2>
+      <svg class="jolly sm" viewBox="0 0 200 200"><use href="#jolly"/></svg>
+      <p class="pname" id="pname"></p>
+      <p class="doa">VIVO O MUERTO</p>
+      <div class="bounty" id="bounty"></div>
+      <div class="rank" id="rank"></div>
+      <p class="msg" id="endMsg"></p>
+      <div class="stats">
+        <div><b id="sOk"></b>aciertos</div>
+        <div><b id="sBad"></b>fallos</div>
+        <div><b id="sStreak"></b>mejor racha</div>
+      </div>
+    </div>
+    <h3 class="revt">Así eran las respuestas</h3>
+    <div id="review"></div>
+    <div class="endbtns">
+      <button class="btn" id="again">Zarpar otra vez</button>
+      <button class="btn alt" id="rename">Cambiar de nombre</button>
+    </div>
+    <div class="gift">
+      <div class="hearts" aria-hidden="true">💖 ⛵ 💖</div>
+      <p class="gift-t">Feliz 4 meses, Amorchito</p>
+      <p class="gift-s">Espero que te haya gustado 💌</p>
+    </div>
+  </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
